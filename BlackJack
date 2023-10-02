@@ -1,0 +1,588 @@
+'''
+BlackJack Project
+Author: Dalila Portal
+Class: COP3502C
+Section:12309
+Description: Simplified version of the game Blackjack. Students will implement random
+card drawing, calculation, state tracking, and console input systems.
+'''
+
+from p1_random import P1Random
+
+# Variables that will be used throughout the while loop
+random = P1Random() # Random ints
+player_hand = random.next_int(13) + 1 # Getting first random int for player's hand
+number = player_hand # The player's hand is equal to the total they have at the start of the gmae
+player_wins = 0
+dealer_wins = 0
+num_games = 1
+num_ties = 0
+percentage_wins = 0.0
+
+# Starting menu
+print(f"START GAME #{num_games}")
+print("")
+print(f"Your card is a {number}!")
+print(f"Your hand is: {player_hand}")
+print("")
+print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+print("")
+
+while True:
+    try:
+        option = int(input(("Choose an option: "))) # Checks that input is an int
+    except ValueError:
+        print("")
+        print("Invalid input!\nPlease enter an integer value between 1 and 4")
+        print("")
+        print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+        print("")
+        continue
+    if option == 1:
+        number = random.next_int(13) + 1 # Get a new randomized int from 1 - 13 since the player drawn a new card
+        if number == 1: # Prints ace if number drawn is 1
+            number = "ACE"
+            player_hand += 1 # Adds card amount to player's hand
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            if player_hand < 21: # If player's hand is still not 21 they keep going and print the menu again
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand > 21: # If player's hand is greater than 21 then it adds the dealer's wins and ends game
+                print("You exceeded 21! You lose.")
+                dealer_wins += 1
+                num_games += 1 # Since game ended it adds to the number of games played
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1: # Checks if new number is an ACE, JACK, QUEEN, or QUEEN
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand == 21: # Checks if player's hand is 21 and gives them an automatic win
+                print("BLACKJACK! You win!")
+                player_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+        elif number >= 2 and number <= 10: # If number is between 2-10 then it continues game and adds it the player's hand
+            player_hand += number
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            if player_hand < 21:
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand > 21:
+                print("You exceeded 21! You lose.")
+                dealer_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand == 21:
+                print("BLACKJACK! You win!")
+                player_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+        elif number == 11: # Checks if number is equal to 11 and sets it equal to 10 for player's hand and prints JACK
+            number = "JACK"
+            player_hand += 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            if player_hand < 21:
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            if player_hand > 21:
+                print("You exceeded 21! You lose.")
+                dealer_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand == 21:
+                print("BLACKJACK! You win!")
+                player_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+        elif number == 12: # Checks if number is equal to 12 and sets it equal to 10 for player's hand and prints QUEEN
+            number = "QUEEN"
+            player_hand += 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            if player_hand < 21:
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            if player_hand > 21:
+                print("You exceeded 21! You lose.")
+                dealer_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand == 21:
+                print("BLACKJACK! You win!")
+                player_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+        elif number == 13: # Checks if number is equal to 13 and sets it equal to 10 for player's hand and prints KING
+            number = "KING"
+            player_hand += 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            if player_hand < 21:
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            if player_hand > 21:
+                print("You exceeded 21! You lose.")
+                dealer_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+            elif player_hand == 21:
+                print("BLACKJACK! You win!")
+                player_wins += 1
+                num_games += 1
+                print("")
+                print(f"START GAME #{num_games}")
+                player_hand = random.next_int(13) + 1
+                number = player_hand
+                if number == 1:
+                    number = "ACE"
+                    player_hand = 1
+                elif number == 11:
+                    number = "JACK"
+                    player_hand = 10
+                elif number == 12:
+                    number = "QUEEN"
+                    player_hand = 10
+                elif number == 13:
+                    number = "KING"
+                    player_hand = 10
+                print("")
+                print(f"Your card is a {number}!")
+                print(f"Your hand is: {player_hand}")
+                print("")
+                print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+                print("")
+
+    elif option == 2:
+        dealer_hand = random.next_int(11) + 16 # Gets a random number between 16-26 for the dealer and checks to see who won between the player and dealer
+        if player_hand > 21 and dealer_hand < 21:
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("You exceeded 21! You lose.")
+            dealer_wins += 1
+            num_games += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+        elif player_hand > 21 and dealer_hand > 21: # If both the dealer and the player have lost because they exceeded 21 ends game and adds to number of ties
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("It's a tie! No one wins.")
+            num_ties += 1
+            num_games += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+        elif dealer_hand > 21 and player_hand < 21: # If the dealer exceeded 21 then the player wins and ends game while adding to player's wins
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("You win!")
+            player_wins += 1
+            num_games += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+        elif player_hand == 21: # Automatic win for player since they got to 21
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("BLACKJACK! You win!")
+            player_wins += 1
+            num_games += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+        elif player_hand > dealer_hand and player_hand < 21: # Player's hand is closer to 21 then the dealer's, adds to player's wins and ends game
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("You Win!")
+            player_wins += 1
+            num_games += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+        elif dealer_hand > player_hand and dealer_hand <= 21: # Dealer's hand is closer to 21 and wins so it adds to dealer's wins and ends that game
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("Dealer wins!")
+            dealer_wins += 1
+            num_games += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+        elif player_hand == dealer_hand and player_hand <= 21: # Checks if dealer and player got the same hand and ends game while adding number to tie
+            print("")
+            print(f"Dealer's hand: {dealer_hand}")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("It's a tie! No one wins!")
+            num_games += 1
+            num_ties += 1
+            print("")
+            print(f"START GAME #{num_games}")
+            player_hand = random.next_int(13) + 1
+            number = player_hand
+            if number == 1:
+                number = "ACE"
+                player_hand = 1
+            elif number == 11:
+                number = "JACK"
+                player_hand = 10
+            elif number == 12:
+                number = "QUEEN"
+                player_hand = 10
+            elif number == 13:
+                number = "KING"
+                player_hand = 10
+            print("")
+            print(f"Your card is a {number}!")
+            print(f"Your hand is: {player_hand}")
+            print("")
+            print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+            print("")
+
+    elif option == 3:
+        print("")
+        print(f"Number of Player wins: {player_wins}")
+        print(f"Number of Dealer wins: {dealer_wins}")
+        print(f"Number of tie games: {num_ties}")
+        print(f"Total # of games played is: {num_games - 1}")
+        percentage_wins = float((player_wins/(num_games - 1)) * 100) # Finds percentage of wins while making it a float
+        percentage_wins = round(percentage_wins, 1) # Rounds percentage to 1 decmial place
+        print(f"Percentage of Player wins: {percentage_wins}%")
+        print("")
+        print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+        print("")
+
+    elif option == 4: # Breaks out of loop and finishes code
+        break
+
+    else: # If input is not between 1-4 then it prints out this error message
+        print("")
+        print("Invalid input!\nPlease enter an integer value between 1 and 4.")
+        print("")
+        print("1. Get another card\n2. Hold hand\n3. Print statistics \n4. Exit")
+        print("")
+
